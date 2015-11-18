@@ -1,0 +1,75 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Usuario
+ *
+ * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="idUsuario_UNIQUE", columns={"idUsuario"}), @ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
+ * @ORM\Entity
+ */
+class Usuario
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idUsuario", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idusuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=100, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="senha", type="string", length=255, nullable=false)
+     */
+    private $senha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dtaInc", type="datetime", nullable=false)
+     */
+    private $dtainc = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dtaValSenha", type="date", nullable=false)
+     */
+    private $dtavalsenha;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status;
+
+
+}
+
