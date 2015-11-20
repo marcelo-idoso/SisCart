@@ -16,18 +16,6 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $entitymanager = $this->getServiceLocator()
-                     ->get('Doctrine\ORM\EntityManager');
-        $user = $entitymanager->getRepository('Application\Entity\Usuario')
-                              ->findByLoginAndPassowrd(
-                                      new Usuario() , 
-                                      'Marcelo',
-                                      '123456789'
-                            );
-        echo "<pre>";
-        var_dump($user);
-        echo "</pre>";
-        die;
         return new ViewModel();
     }
 }

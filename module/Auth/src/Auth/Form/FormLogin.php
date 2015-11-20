@@ -20,7 +20,7 @@ class FormLogin extends Form {
         $login->setLabel("Login");
         $this->add($login);
   
-        $senha = new Text('senha');
+        $senha = new Password('senha');
         $senha->setLabel("Senha");
         $this->add($senha);
         

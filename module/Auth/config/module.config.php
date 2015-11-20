@@ -61,6 +61,7 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            'Zend\Authentication\AuthenticationService' => 'Auth\Authetication\Factory\AutheticationFactory'
         ),
     ),
     'translator' => array(

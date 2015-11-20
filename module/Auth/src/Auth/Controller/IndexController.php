@@ -9,7 +9,7 @@
 
 namespace Auth\Controller;
 
-
+use Auth\Authetication\Adapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Auth\Form\FormLogin;
@@ -24,20 +24,32 @@ class IndexController extends AbstractActionController
         $form  = new FormLogin();
        
         if ($this->getRequest()->isPost()) {
-            $data = $form->getData();
-            /**
-             * 
-             * @var $auth \Zend\Authetication\AutheticationService
-             */
             
-            $auth = $this->getServiceLocator()
-                         ->get('Zend\Authentication\AuthenticationService');
+            $form->setData($this->getRequest()->getPost()->toArray());
             
-            $adapter = $auth->getAdapter;
-            $adapter->setLogin($data['login']->setSenha)
+            if ($form->isValid()){
+                $data = $form->getData();
+               
+                $auth = $this->getServiceLocator()
+                             ->get('Zend\Authentication\AuthenticationService');
             
-        }
+                $adapter = $auth->getAdapter();
+                    
+                $adapter->setLogin($data['login']);
+                       $adapter->setSenha($data['senha']);
+                
+                if ($auth->authenticate()->isValid()) {
+                    return $this->redirect()->toRoute('home' , 
+                            array('controller' => 'home' ,
+                                'action' => 'index'));
+                }
+                
+                $mensagem = $auth->authenticate()->getMessages();
+                $this->flashMessenger()->addErrorMessage($mensagem);
+                
+            }   
         
+        }   
         return $viewModel->setVariables(Array(
             'form' => $form
         )); 
