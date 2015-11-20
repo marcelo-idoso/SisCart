@@ -12,6 +12,7 @@ return array(
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
         'Application',
+        'Auth'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
