@@ -9,7 +9,6 @@
 
 namespace Auth\Controller;
 
-use Auth\Authetication\Adapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Auth\Form\FormLogin;
@@ -26,7 +25,7 @@ class IndexController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
             
             $form->setData($this->getRequest()->getPost()->toArray());
-            
+           
             if ($form->isValid()){
                 $data = $form->getData();
                
@@ -39,20 +38,35 @@ class IndexController extends AbstractActionController
                        $adapter->setSenha($data['senha']);
                 
                 if ($auth->authenticate()->isValid()) {
-                    return $this->redirect()->toRoute('home' , 
-                            array('controller' => 'home' ,
-                                'action' => 'index'));
+                    return $this->redirect()->toRoute('home' ,   array('controller' => 'home' ,'action' => 'index'));
                 }
                 
                 $mensagem = $auth->authenticate()->getMessages();
+                
                 $this->flashMessenger()->addErrorMessage($mensagem);
+                return $viewModel->setVariables(Array(
+                    'form' => $form ,
+                    'error' => $this->flashMessenger()->getErrorMessages()
+            
+                ));
                 
             }   
-        
+            
         }   
         return $viewModel->setVariables(Array(
-            'form' => $form
+            'form' => $form ,
+            
         )); 
+        
+    }
+    
+    public function logoutAction() {
+        $authentication = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+        $authentication->clearIdentity();
+               
+        return $this->redirect()->toRoute('login' , array(
+                                            'controller' => 'auth' ,
+                                            'action' => 'login'));
         
     }
 }

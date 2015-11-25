@@ -8,7 +8,6 @@
  */
 
 namespace Application;
-
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
@@ -19,6 +18,20 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+                
+        $sharedEvents = $eventManager->getSharedManager();
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($ev){
+        $auth = $ev->getApplication()->getServiceManager()->get('Zend\Authentication\AuthenticationService');
+            if ($auth->hasIdentity()) {
+                return;
+            } elseif ($ev->getRouteMatch()->getParam('action') == 'login') {
+                return ;
+            } else{
+               
+            }
+            
+         },99);
     }
 
     public function getConfig()

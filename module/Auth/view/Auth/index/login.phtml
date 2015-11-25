@@ -1,5 +1,13 @@
 <?php
     $form = $this->form;
+    
+    if ($this->error){
+       echo '<div class="alert alert-danger">' . $this->error[0] . '
+            <button type="button" class="close" data-dismiss="alert">x</button>)
+       </div>'; 
+    }
+    var_dump($this->flashMessenger()->getErrorMessages());
+    
     echo $this->flashMessenger()
          ->setMessageOpenFormat('<div%s>')
          ->setMessageSeparatorString('<p></p>')
@@ -7,12 +15,15 @@
          ->render('error' , array('alert alert-danger'));
     
     
-    $form->setAttribute('action', $this->url('login' , array('controller' => 'auth' , 'action' => 'login')));
+    
+    $form->setAttribute('action', $this->url('login' , array('controller' => 'Auth' , 'action' => 'login')));
     
     $form->prepare();
     echo $this->form()->openTag($form);
     echo $this->formCollection($form);
-    echo $this->form()->closeTag();
+    echo $this->form()->closeTag($form);
+    
+    
     
 ?>
 
