@@ -36,6 +36,7 @@ class Adapter implements AdapterInterface{
     
           
     public function authenticate() {
+        
         $user = $this->em
                      ->getRepository('Application\Entity\Usuario')
                      ->findByLoginAndPassowrd(
@@ -46,11 +47,13 @@ class Adapter implements AdapterInterface{
         
         if ($user) {
             return new Result(Result::SUCCESS, $user , array());
-        }
+        }elseif($user == false) {
+            return new Result(Result::FAILURE,  $user , array(
+                                'Não foi possível conectar. Login ou senha invalido'));
+        }else {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID,  NULL , array(
-                                'Não foi possível conectar. Login ou senha invalido'
-                            )
-                        );
+                                'Não foi possível conectar. Login ou senha invalido'));
+        }
         
         
     }

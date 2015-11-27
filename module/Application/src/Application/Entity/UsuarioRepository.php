@@ -21,7 +21,6 @@ class UsuarioRepository extends EntityRepository {
     
         if (!empty($userLogin)) {
             $usuario->setSalt($userLogin->getSalt());
-            
             if ($usuario->encryptSenha($senha) == $userLogin->getSenha()) {
                 return $userLogin;
             }

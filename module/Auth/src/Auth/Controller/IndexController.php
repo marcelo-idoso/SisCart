@@ -18,7 +18,7 @@ class IndexController extends AbstractActionController
 {
     public function loginAction()
     {
-        $viewModel = new ViewModel();
+        
         
         $form  = new FormLogin();
        
@@ -35,27 +35,27 @@ class IndexController extends AbstractActionController
                 $adapter = $auth->getAdapter();
                     
                 $adapter->setLogin($data['login']);
-                       $adapter->setSenha($data['senha']);
+                $adapter->setSenha($data['senha']);
                 
                 if ($auth->authenticate()->isValid()) {
                     return $this->redirect()->toRoute('home' ,   array('controller' => 'home' ,'action' => 'index'));
+                }else {
+                    $mensagem = $auth->authenticate()->getMessages();
+                    $this->flashMessenger()->addErrorMessage($mensagem[0]);
+                    
                 }
+               
                 
-                $mensagem = $auth->authenticate()->getMessages();
-                
-                $this->flashMessenger()->addErrorMessage($mensagem);
-                return $viewModel->setVariables(Array(
-                    'form' => $form ,
-                    'error' => $this->flashMessenger()->getErrorMessages()
-            
-                ));
                 
             }   
-            
+            return new ViewModel(Array(
+                'form' => $form ,
+                'error' => $this->flashMessenger()->getMessages()
+            ));
         }   
-        return $viewModel->setVariables(Array(
+        return new ViewModel(Array(
             'form' => $form ,
-            
+            'error' => $this->flashMessenger()->getMessages()
         )); 
         
     }
