@@ -1,0 +1,13 @@
+<?php
+    $form = $this->form;
+    $form->setAttribute('class', 'form-horizontal form-label-left');
+    if ($this->success){
+      echo  '<div class="alert alert-success">' . $this->success[0] . '
+                <button type="button" class="close" data-dismiss="alert">x</button>
+            </div>'; 
+    }
+    if ($this->error){
+       echo '<div class="alert alert-danger">' . $this->error[0] . '
+            <button type="button" class="close" data-dismiss="alert">x</button>
+       </div>'; 
+    }

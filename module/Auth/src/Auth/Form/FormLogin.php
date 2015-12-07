@@ -17,20 +17,23 @@ class FormLogin extends Form {
         $this->setInputFilter(new FormLoginFilter());
         
         $login = new Text('login');
-        $login->setLabel("Login");
         $login->setAttributes(array(
+            'class'    => "form-control ",
             'maxlength' => 100 ,
         ));
         $this->add($login);
   
         $senha = new Password('senha');
-        $senha->setLabel("Senha");
+        $senha->setAttributes(array(
+            'class'  => "form-control ",
+        ));
         $this->add($senha);
         
         $button = new Button('submit');
         $button->setLabel('Logar')
                ->setAttributes(array(
-                   'type'   => 'submit'
+                   'type'   => 'submit' ,
+                   'class'  => 'btn btn-primary col-sm-12',
                ));
         $this->add($button);
     }

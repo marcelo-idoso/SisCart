@@ -19,19 +19,6 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
-        
-        $sharedEvents = $eventManager->getSharedManager();
-        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($ev){
-        $auth = $ev->getApplication()->getServiceManager()->get('Zend\Authentication\AuthenticationService');
-            if ($auth->hasIdentity()) {
-                return;
-            }
-            if ($ev->getRouteMatch()->getParam('action') == 'login') {
-                return ;
-            }
-            echo ('Acesso Negado');
-         },99);
     }
 
     public function getConfig()

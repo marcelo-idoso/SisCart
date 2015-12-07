@@ -15,7 +15,7 @@ return array(
             'login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/login',
+                    'route'    => '/',
                     'defaults' => array(
                         'controller' => 'Auth\Controller\Index',
                         'action'     => 'login',
@@ -29,6 +29,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Auth\Controller\Index',
                         'action'     => 'logout',
+                    ),
+                ),
+            ),
+            'teste' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/teste',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Index',
+                        'action'     => 'teste',
                     ),
                 ),
             ),
@@ -89,6 +99,7 @@ return array(
             'Auth\Controller\Index' => Controller\IndexController::class
         ),
     ),
+    
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
@@ -96,7 +107,7 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../../application/view/layout/layout.phtml',
+            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../../application/view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../../application/view/error/404.phtml',
             'error/index'             => __DIR__ . '/../../application/view/error/index.phtml',

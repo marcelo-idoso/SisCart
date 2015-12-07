@@ -7,15 +7,10 @@
     
     
     $this->formElementErrors()
-         ->setMessageOpenFormat('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">x</button>')
-         ->setMessageCloseString('</div>')
+         ->setMessageOpenFormat('<br></div><div class="alert alert-warning login-space "><button type="button" class="close" data-dismiss="alert">x</button><ul class=erroalert><li>')
+         ->setMessageCloseString('</div><div>')
          ->render($form);
     
-    
-    echo $flash->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
-echo $flash->render('info', array('alert', 'alert-dismissable', 'alert-info'));
-echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
-echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
     
     
     
@@ -33,16 +28,46 @@ echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-succes
     $form->setAttribute('action', $this->url('login' , array('controller' => 'Auth' , 'action' => 'login')));
     $form->prepare();
     echo $this->form()->openTag($form);
-    echo $this->formCollection($form);
-    echo $this->form()->closeTag($form);
     
     
     
 ?>
 
-<style type="text/css">
-    input, label{
-        clear: both;
-        display: block;
-    }
-</style>
+<div class="row-fluid">
+    <div class="row-fluid">
+        <div class="login-box">
+            <p class="login-box-msg">Login</p>
+            <hr/>
+            <!-- Input de Login-->
+            <div class="form-group col-md-offset-1 col-md-10">
+                <label for="exampleInputEmail1">Login: </label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <?php echo $this->formRow($form->get('login')); ?>
+                 </div>
+            </div>
+            
+            <!-- Input de Senha-->
+            <div class="form-group col-md-offset-1 col-md-10">
+                <label for="exampleInputEmail1">Login: </label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <?php echo $this->formRow($form->get('senha')); ?>
+                 </div>
+            </div>
+            <div class="clearfix"></div> 
+            <hr/>
+            
+            <!-- Input de Submit-->
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-3 navbar-right">
+                <?php echo $this->formRow($form->get('submit')); ?>
+            </div>
+         <div>  
+         <?php
+            echo $this->form()->closeTag($form);
+        ?>
+
+        </div>
+    </div>
+</div>

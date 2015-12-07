@@ -69,4 +69,9 @@ class IndexController extends AbstractActionController
                                             'action' => 'login'));
         
     }
+    
+    public function testeAction() {
+        
+    }
+    
 }
